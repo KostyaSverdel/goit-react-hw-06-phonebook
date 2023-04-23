@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
 import css from '../ContactForm/ContactForm.module.css';
-import { v4 as uuidv4 } from 'uuid';
 
 function ContactForm() {
   const dispatch = useDispatch();
@@ -20,8 +19,7 @@ function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const id = uuidv4(); // создание уникального идентификатора
-    dispatch(addContact({ id, name, number }));
+    dispatch(addContact({ name, number }));
     setName('');
     setNumber('');
   };
