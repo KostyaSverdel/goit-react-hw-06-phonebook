@@ -14,7 +14,7 @@ function ContactListItem({ id, name, number, onDeleteContact }) {
 }
 
 ContactListItem.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
   onDeleteContact: PropTypes.func.isRequired,

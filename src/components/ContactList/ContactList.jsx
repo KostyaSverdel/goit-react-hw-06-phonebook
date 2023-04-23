@@ -7,20 +7,26 @@ import css from '../ContactList/ContactList.module.css';
 
 function ContactList() {
   const dispatch = useDispatch();
+  const filter = useSelector(state => state.contacts.filter);
   const contacts = useSelector(state => state.contacts.contacts);
 
-  const handleDeleteContact = id => {
-    dispatch(deleteContact(id));
+  const filteredContacts = contacts.filter(contact => {
+    return contact.name.toLowerCase().includes(filter.toLowerCase());
+  });
+
+  const handleDeleteContact = contact => {
+    dispatch(deleteContact(contact));
   };
 
   return (
     <ul className={css.ContactListConteiner}>
-      {contacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <ContactListItem
           key={id}
+          id={id}
           name={name}
           number={number}
-          onDeleteContact={() => handleDeleteContact(id)}
+          onDeleteContact={() => handleDeleteContact({ id, name, number })}
         />
       ))}
     </ul>
@@ -35,7 +41,6 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
 };
 
 export default ContactList;

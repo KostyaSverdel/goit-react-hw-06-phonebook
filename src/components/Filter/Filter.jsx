@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux'; // импортируем хуки
-import { updateFilter } from '../../redux/contactsSlice'; // импортируем действие
-
+import { useSelector, useDispatch } from 'react-redux';
+import { updateFilter } from '../../redux/contactsSlice';
 import css from '../Filter/Filter.module.css';
 
 function Filter() {
-  const filterValue = useSelector(state => state.contacts.filter); // получаем значение фильтра из хранилища
-  const dispatch = useDispatch(); // получаем функцию для отправки действия в хранилище
+  const filter = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
 
   const handleFilterChange = e => {
-    const { value } = e.target;
-    dispatch(updateFilter(value)); // отправляем действие в хранилище при изменении фильтра
+    dispatch(updateFilter(e.target.value));
   };
 
   return (
@@ -21,7 +19,7 @@ function Filter() {
         <input
           className={css.FilterInputs}
           type="text"
-          value={filterValue}
+          value={filter}
           onChange={handleFilterChange}
         />
       </label>
